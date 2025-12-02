@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Pricing Toggle</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Maven+Pro:wght@400..900&display=swap');
+body {
+    background:#ffffff;
+    font-family: "Maven Pro", sans-serif !important;
+    margin:0;
+    padding:40px 0;
+    color:white;
+}
+
+.container{
+    max-width:1100px;
+    margin:auto;
+    text-align:center;
+}
+
+.toggle-wrap{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:15px;
+    margin-bottom:30px;
+}
+
+.toggle{
+    width:58px;
+    height:28px;
+    background:#416492 !important;
+    border-radius:30px;
+    position:relative;
+    cursor:pointer;
+    transition:0.3s ease;
+}
+
+.toggle .ball{
+    width:24px;
+    height:24px;
+    background:rgb(255, 255, 255);
+    border-radius:50%;
+    position:absolute;
+    top:2px;
+    left:2px;
+    transition:0.3s ease;
+}
+
+.toggle.active {
+    background:#cacaca !important;
+}
+
+.toggle.active .ball {
+    left:2px; 
+}
+
+.toggle.monthly .ball {
+    left:32px; 
+}
+
+
+.pricing{
+    display:flex;
+    gap:20px;
+    justify-content:center;
+    flex-wrap:wrap;
+}
+
+.card{
+    background:#ffffff;
+    border-radius:30px;
+    padding:30px;
+    width:300px;
+    box-shadow:0 0 10px rgba(0, 0, 0, 0.096);
+    text-align:center;
+}
+
+.card h2{
+        font-family: "Maven Pro", sans-serif !important;
+    font-size:22px;
+    margin-bottom:10px;
+    color:#000;
+}
+
+.price{
+    font-size:32px;
+    margin:10px 0;
+    font-weight:bold;
+    color:#000;
+}
+
+.desc{
+    opacity:0.8;
+    line-height:1.4;
+    margin-bottom:20px;
+    color:#000;
+    font-size:16px;
+    font-weight:500;
+    text-align:center;
+}
+
+ul{
+    list-style:none;
+    padding:0;
+    /*margin-top:20px;*/
+    line-height:1.8;
+    color:#000;
+    text-align:left;
+    margin-left:24px;
+    font-size:16px;
+    font-weight:500;
+}
+
+/* BUTTON */
+
+.firstbutton{
+    background:#296BCF !important;
+    padding:12px 30px;
+    color:white;
+    font-size:16px;
+    border-radius:30px;
+    cursor:pointer;
+    margin-top:120px !important;
+    box-shadow:1px 2px 10px #a9a7a7 !important;
+    border:none;
+    border-bottom:2px solid #ffffff !important;
+    font-weight:600;
+    margin-bottom:20px !important;
+    transition:all 0.4s ease;
+}
+
+.firstbutton:hover{
+    background:#ffffff !important;
+    color:#1868db !important;
+    border:2px solid #1868db !important;
+    box-shadow:1px 2px 10px #1868db !important;
+}
+
+.Middelbutton{
+    background:#296BCF !important;
+    padding:12px 30px;
+    color:white;
+    font-size:16px;
+    border-radius:30px;
+    cursor:pointer;
+    margin-top:90px !important;
+    box-shadow:1px 2px 10px #a9a7a7 !important;
+    border:none;
+    border-bottom:2px solid #ffffff !important;
+    font-weight:600;
+    margin-bottom:20px !important;
+    transition:all 0.4s ease;
+}
+
+.Middelbutton:hover{
+    background:#ffffff !important;
+    color:#1868db !important;
+    border:2px solid #1868db !important;
+    box-shadow:1px 2px 10px #1868db !important;
+}
+
+.lastbutton{
+    background:#296BCF !important;
+    padding:12px 30px;
+    color:white;
+    font-size:16px;
+    border-radius:30px;
+    cursor:pointer;
+    /*margin-top:58px !important;*/
+    box-shadow:1px 2px 10px #a9a7a7 !important;
+    border:none;
+    border-bottom:2px solid #ffffff !important;
+    font-weight:600;
+    margin-bottom:20px !important;
+    transition:all 0.4s ease;
+}
+
+.lastbutton:hover{
+    background:#ffffff !important;
+    color:#1868db !important;
+    border:2px solid #1868db !important;
+    box-shadow:1px 2px 10px #1868db !important;
+}
+</style>
+</head>
+<body>
+
+<div class="toggle-wrap">
+    <span style="font-size:20px; color:#000; font-weight:700;">Yearly</span>
+
+    <div id="toggle" class="toggle active">
+        <div class="ball"></div>
+    </div>
+
+    <span style="font-size:20px; color:#000; font-weight:600;">Monthly</span>
+</div>
+
+<div class="pricing">
+
+
+    <div class="card">
+        <h2>Repostify Essentials</h2>
+        <div class="price" id="p1">
+            $16 <span style='font-size:18px;'>per month</span><br>
+            <small style='font-size:20px; color:#4C5563; font-weight:600;'>billed at <s>$240/year</s></small><br>
+            <span style='color:#4C5563;'>$190/year</span>
+        </div>
+        <div class="desc" id="d1">Best for new creators who want easy automation</div>
+                <hr style="opacity: 0.2; margin:20px 0; height: 2px; border: none; background-color: #000;">
+
+        <ul>
+            <li>• Link up to 2 platforms</li>
+            <li>• Scans uploads every hour</li>
+        </ul>
+        <button class="firstbutton">Try now</button>
+    </div>
+
+
+    <div class="card">
+        <h2>Repostify Growth</h2>
+        <div class="price" id="p2">
+            $28 <span style='font-size:18px;'>per month</span><br>
+            <small style='font-size:20px; color:#4C5563; font-weight:600;'>billed at <s>$408/year</s></small><br>
+            <span style='color:#4C5563;'>$339/year</span>
+        </div>
+        <div class="desc" id="d2">For serious creators who treat their content like a business</div>
+                <hr style="opacity: 0.2; margin:20px 0; height: 2px; border: none; background-color: #000;">
+
+        <ul>
+            <li>• Link up to 4 platforms</li>
+            <li>• Scans uploads every hour</li>
+            <li>• Direct Upload</li>
+        </ul>
+        <button class="Middelbutton">Try now</button>
+    </div>
+
+
+    <div class="card">
+        <h2>Repostify Unlimited</h2>
+        <div class="price" id="p3">
+            $32 <span style='font-size:18px;'>per month</span><br>
+            <small style='font-size:20px; color:#4C5563;font-weight:600;'>billed at <s>$468/year</s></small><br>
+            <span style='color:#4C5563;'>$389/year</span>
+        </div>
+        <div class="desc" id="d3">For creators who want to supercharge their growth</div>
+                <hr style="opacity: 0.2; margin:20px 0; height: 2px; border: none; background-color: #000;">
+
+        <ul>
+            <li>• Link unlimited platforms</li>
+            <li>• Scans uploads every 10 minutes</li>
+            <li>• Direct Upload with platform-configurable descriptions</li>
+        </ul>
+        <button class="lastbutton">Try now</button>
+    </div>
+
+</div>
+
+<script>
+const toggle = document.getElementById("toggle");
+let yearly = true;  
+
+toggle.addEventListener("click", () => {
+    yearly = !yearly;
+
+    if (yearly) {
+        toggle.classList.add("active");
+        toggle.classList.remove("monthly");
+
+        document.getElementById("p1").innerHTML =
+            "$16 <span style='font-size:18px;'>per month</span><br>" +
+            "<small style='font-size:20px; color:#4C5563;'>billed at <s>$240/year</s></small><br>" +
+            "<span style='color:#4C5563;'>$190/year</span>";
+
+        document.getElementById("p2").innerHTML =
+            "$28 <span style='font-size:18px;'>per month</span><br>" +
+            "<small style='font-size:20px; color:#4C5563;'>billed at <s>$408/year</s></small><br>" +
+            "<span style='color:#4C5563;'>$339/year</span>";
+
+        document.getElementById("p3").innerHTML =
+            "$32 <span style='font-size:18px;'>per month</span><br>" +
+            "<small style='font-size:20px; color:#4C5563;'>billed at <s>$468/year</s></small><br>" +
+            "<span style='color:#4C5563;'>$389/year</span>";
+    } else {
+        toggle.classList.remove("active");
+        toggle.classList.add("monthly");
+
+        document.getElementById("p1").innerHTML =
+            "$20 <span style='font-size:30px;'>/Month</span>";
+        document.getElementById("p2").innerHTML =
+            "$34 <span style='font-size:30px;'>/Month</span>";
+        document.getElementById("p3").innerHTML =
+            "$39 <span style='font-size:30px;'>/Month</span>";
+    }
+});
+</script>
+
+</body>
+</html>
