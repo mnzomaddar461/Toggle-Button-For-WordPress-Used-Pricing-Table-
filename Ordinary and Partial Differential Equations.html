@@ -1,0 +1,1323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ordinary and Partial Differential Equations - Assignment</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+    <style>
+        @page {
+            size: A4;
+            margin: 2cm;
+        }
+        
+        body {
+            font-family: 'Times New Roman', serif;
+            font-size: 12pt;
+            line-height: 1.6;
+            color: #000;
+            max-width: 30cm;
+            margin: 0 auto;
+            padding: 20px;
+            background: white;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            border: 3px solid #000;
+            padding: 20px;
+            background: #f8f9fa;
+        }
+        
+        .header h1 {
+            font-size: 20pt;
+            margin: 10px 0;
+            color: #1a1a1a;
+        }
+        
+        .header p {
+            margin: 5px 0;
+            font-size: 11pt;
+        }
+        
+        h2 {
+            font-size: 16pt;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #333;
+            padding-bottom: 8px;
+            color: #1a1a1a;
+        }
+        
+        h3 {
+            font-size: 14pt;
+            margin-top: 25px;
+            margin-bottom: 12px;
+            color: #2c3e50;
+        }
+        
+        .definition {
+            background: #f0f8ff;
+            border-left: 4px solid #4a90e2;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        
+        .example {
+            background: #fff9f0;
+            border: 2px solid #e8a95c;
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: 5px;
+        }
+        
+        .example h4 {
+            color: #d35400;
+            margin-top: 0;
+            font-size: 13pt;
+        }
+        
+        .solution {
+            margin-left: 20px;
+            margin-top: 15px;
+            padding-left: 15px;
+            border-left: 3px solid #ccc;
+        }
+        
+        .formula {
+            background: #f9f9f9;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 3px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+        
+        .note {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 12px;
+            margin: 15px 0;
+            font-style: italic;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        table, th, td {
+            border: 1px solid #333;
+        }
+        
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        
+        th {
+            background: #e8e8e8;
+            font-weight: bold;
+        }
+        
+        .page-break {
+            page-break-after: always;
+        }
+        
+        .controls {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: white;
+            padding: 15px;
+            border: 2px solid #4a90e2;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+        
+        button {
+            background: #4a90e2;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 14pt;
+            cursor: pointer;
+            border-radius: 4px;
+            margin: 5px;
+        }
+        
+        button:hover {
+            background: #357abd;
+        }
+        
+        @media print {
+            .controls {
+                display: none;
+            }
+            body {
+                margin: 0;
+                padding: 0;
+            }
+        }
+
+                /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+
+            .header {
+                padding: 15px;
+            }
+
+            h2 {
+                margin-top: 30px;
+            }
+
+            .example {
+                padding: 15px;
+            }
+
+            .solution {
+                margin-left: 0;
+                padding-left: 10px;
+            }
+
+            .controls {
+                top: 10px;
+                right: 10px;
+                padding: 10px;
+            }
+
+            button {
+                padding: 10px 16px;
+                font-size: 12pt;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                font-size: 10pt;
+            }
+
+            .header h1 {
+                font-size: 14pt;
+            }
+
+            .header p {
+                font-size: 9pt;
+            }
+
+            h2 {
+                font-size: 12pt;
+            }
+
+            h3 {
+                font-size: 11pt;
+            }
+
+            .formula {
+                font-size: 10pt;
+                padding: 10px;
+            }
+        }
+        /* =========================
+   GLOBAL RESET
+========================= */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+/* =========================
+   PRINT SETUP (A4)
+========================= */
+@page {
+    size: A4;
+    margin: 2cm;
+}
+
+/* =========================
+   BODY
+========================= */
+body {
+    font-family: 'Times New Roman', serif;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #000;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: clamp(12px, 3vw, 24px);
+    background: #fff;
+    overflow-x: hidden;
+}
+
+/* =========================
+   HEADER
+========================= */
+.header {
+    text-align: center;
+    margin-bottom: 2rem;
+    border: 3px solid #000;
+    padding: clamp(12px, 3vw, 20px);
+    background: #f8f9fa;
+}
+
+.header h1 {
+    font-size: clamp(1.1rem, 4vw, 1.5rem);
+    margin: 10px 0;
+}
+
+.header p {
+    margin: 4px 0;
+    font-size: clamp(0.75rem, 2.5vw, 0.9rem);
+}
+
+/* =========================
+   HEADINGS
+========================= */
+h2 {
+    font-size: clamp(1.1rem, 3.5vw, 1.4rem);
+    margin-top: 2.5rem;
+    margin-bottom: 1.25rem;
+    border-bottom: 3px solid #333;
+    padding-bottom: 6px;
+}
+
+h3 {
+    font-size: clamp(1rem, 3vw, 1.2rem);
+    margin-top: 1.5rem;
+}
+
+/* =========================
+   CONTENT BLOCKS
+========================= */
+.definition,
+.example,
+.note,
+.solution {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+}
+
+.definition {
+    background: #f0f8ff;
+    border-left: 4px solid #4a90e2;
+    padding: 1rem;
+    margin: 1.25rem 0;
+}
+
+.example {
+    background: #fff9f0;
+    border: 2px solid #e8a95c;
+    padding: clamp(12px, 3vw, 20px);
+    margin: 1.5rem 0;
+    border-radius: 6px;
+}
+
+.solution {
+    margin-left: 0;
+    padding-left: 1rem;
+    border-left: 3px solid #ccc;
+}
+
+/* =========================
+   FORMULA & MATHJAX
+========================= */
+.formula {
+    background: #f9f9f9;
+    padding: 0.75rem;
+    margin: 1rem 0;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    overflow-x: auto;
+    text-align: center;
+}
+
+mjx-container {
+    max-width: 100%;
+    overflow-x: auto !important;
+}
+
+/* =========================
+   TABLE
+========================= */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.25rem 0;
+    display: block;
+    overflow-x: auto;
+}
+
+th, td {
+    padding: 8px;
+    font-size: clamp(0.8rem, 2.5vw, 0.95rem);
+}
+/* =========================
+   GLOBAL RESET
+========================= */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+/* =========================
+   PAGE SETUP (PRINT)
+========================= */
+@page {
+    size: A4;
+    margin: 2cm;
+}
+
+/* =========================
+   BODY
+========================= */
+body {
+    font-family: "Times New Roman", serif;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #000;
+    margin: 0 auto;
+    padding: clamp(12px, 3vw, 24px);
+    max-width: 100%;
+    background: #fff;
+    overflow-x: hidden;
+}
+
+/* =========================
+   HEADER
+========================= */
+.header {
+    text-align: center;
+    margin-bottom: 2rem;
+    border: 3px solid #000;
+    padding: clamp(12px, 3vw, 20px);
+    background: #f8f9fa;
+}
+
+.header h1 {
+    font-size: clamp(1.1rem, 4vw, 1.5rem);
+    margin: 10px 0;
+}
+
+.header p {
+    margin: 4px 0;
+    font-size: clamp(0.75rem, 2.5vw, 0.9rem);
+}
+
+/* =========================
+   HEADINGS
+========================= */
+h2 {
+    font-size: clamp(1.1rem, 3.5vw, 1.4rem);
+    margin-top: 2.5rem;
+    margin-bottom: 1.25rem;
+    border-bottom: 3px solid #333;
+    padding-bottom: 6px;
+}
+
+h3 {
+    font-size: clamp(1rem, 3vw, 1.2rem);
+    margin-top: 1.5rem;
+}
+
+/* =========================
+   CONTENT BLOCKS
+========================= */
+.definition,
+.example,
+.note,
+.solution {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+}
+
+.definition {
+    background: #f0f8ff;
+    border-left: 4px solid #4a90e2;
+    padding: 1rem;
+    margin: 1.25rem 0;
+}
+
+.example {
+    background: #fff9f0;
+    border: 2px solid #e8a95c;
+    padding: clamp(12px, 3vw, 20px);
+    margin: 1.5rem 0;
+    border-radius: 6px;
+}
+
+.example h4 {
+    color: #d35400;
+    margin-top: 0;
+}
+
+.solution {
+    margin-left: 0;
+    padding-left: 1rem;
+    border-left: 3px solid #ccc;
+}
+
+/* =========================
+   FORMULA & MATHJAX
+========================= */
+.formula {
+    background: #f9f9f9;
+    padding: 0.75rem;
+    margin: 1rem 0;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    text-align: center;
+    overflow-x: auto;
+}
+
+mjx-container {
+    max-width: 100%;
+    overflow-x: auto !important;
+}
+
+/* =========================
+   NOTE
+========================= */
+.note {
+    background: #fff3cd;
+    border-left: 4px solid #ffc107;
+    padding: 0.75rem;
+    margin: 1rem 0;
+    font-style: italic;
+}
+
+/* =========================
+   TABLE
+========================= */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.25rem 0;
+    display: block;
+    overflow-x: auto;
+}
+
+table, th, td {
+    border: 1px solid #333;
+}
+
+th, td {
+    padding: 8px;
+    font-size: clamp(0.8rem, 2.5vw, 0.95rem);
+}
+
+th {
+    background: #e8e8e8;
+    font-weight: bold;
+}
+
+/* =========================
+   CONTROLS (PRINT BUTTON)
+========================= */
+.controls {
+    position: fixed;
+    top: 12px;
+    right: 12px;
+    background: #fff;
+    padding: 10px;
+    border: 2px solid #4a90e2;
+    border-radius: 6px;
+    z-index: 1000;
+}
+
+button {
+    width: 100%;
+    background: #4a90e2;
+    color: #fff;
+    border: none;
+    padding: 10px 16px;
+    font-size: clamp(0.8rem, 3vw, 1rem);
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #357abd;
+}
+
+/* =========================
+   PAGE BREAK
+========================= */
+.page-break {
+    page-break-after: always;
+}
+
+/* =========================
+   MOBILE (≤768px)
+========================= */
+@media (max-width: 768px) {
+    body {
+        font-size: 0.95rem;
+    }
+
+    .solution {
+        padding-left: 0.75rem;
+    }
+}
+
+/* =========================
+   SMALL MOBILE (≤480px)
+========================= */
+@media (max-width: 480px) {
+    body {
+        font-size: 0.85rem;
+    }
+
+    h2 {
+        margin-top: 2rem;
+    }
+}
+
+/* =========================
+   PRINT ONLY
+========================= */
+@media print {
+    .controls {
+        display: none;
+    }
+
+    body {
+        padding: 0;
+        max-width: 30cm;
+    }
+}
+
+
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>University of Global Village (UGV), Barishal</h1>
+        <p><strong>Name:</strong> Md Naim Zomaddar</p>
+        <p><strong>Department:</strong> CSE | <strong>ID:</strong> 12421042</p>
+        <p><strong>Semester:</strong> 2nd | <strong>Group:</strong> Regular | <strong>Section:</strong> A</p>
+        <p><strong>Course Title:</strong> Ordinary and Partial Differential Equations</p>
+        <p><strong>Original View:</strong> https://mdnaim.codzzup.com/2025/12/22/ordinary-and-partial-differential-equations/</p>
+        <p><strong>Course Code:</strong> MAT 0541-1201</p>
+        <p style="font-size: 14pt; margin-top: 10px;"><strong>Assignment</strong></p>
+
+    </div>
+
+    <h2>Linear Differential Equation</h2>
+    
+    <div class="definition">
+        <p>A differential equation of the form:</p>
+        <div class="formula">
+            \[\frac{d^n y}{dx^n} + P_1 \frac{d^{n-1} y}{dx^{n-1}} + P_2 \frac{d^{n-2} y}{dx^{n-2}} + \ldots + P_n y = Q \quad \ldots (i)\]
+        </div>
+        <p>Where \(P_1, P_2, \ldots, P_n\) and \(Q\) are functions of \(x\) or constants, is called a <strong>linear differential equation of nth order</strong>.</p>
+        
+        <p style="margin-top: 15px;">If \(P_1, P_2, \ldots, P_n\) are all constants (not functions of \(x\)) and \(Q\) is a function of \(x\) or a constant, then the equation is called a <strong>linear differential equation with constant coefficients</strong>.</p>
+    </div>
+
+    <h3>Homogeneous Linear Differential Equation</h3>
+    
+    <p>If the right-hand term \(Q\) is identically zero, then equation (i) reduces to:</p>
+    <div class="formula">
+        \[\frac{d^n y}{dx^n} + P_1 \frac{d^{n-1} y}{dx^{n-1}} + P_2 \frac{d^{n-2} y}{dx^{n-2}} + \ldots + P_n y = 0 \quad \ldots (ii)\]
+    </div>
+    <p>This is called a <strong>linear homogeneous differential equation</strong>.</p>
+
+    <h3>General Solutions Based on Roots</h3>
+
+    <p><strong>a) Real and Distinct Roots:</strong></p>
+    <p>If \(m_1, m_2, \ldots, m_n\) are real and distinct roots:</p>
+    <div class="formula">
+        \[y = c_1 e^{m_1 x} + c_2 e^{m_2 x} + c_3 e^{m_3 x} + \ldots + c_n e^{m_n x}\]
+    </div>
+
+    <p><strong>b) Real and Equal Roots:</strong></p>
+    <p>If the roots \(m_1, m_2, m_3, \ldots, m_n\) are real and equal:</p>
+    <div class="formula">
+        \[y = (C_1 + C_2 x + C_3 x^2 + \ldots + C_n x^{n-1})e^{mx}\]
+    </div>
+
+    <p><strong>c) Complex and Distinct Roots:</strong></p>
+    <p>If the roots are complex and distinct (of the form \(m = a \pm bi\)):</p>
+    <div class="formula">
+        \[y = (C_1 \cos(bx) + C_2 \sin(bx))e^{ax}\]
+    </div>
+    <div class="note">
+        Where \(a\) is the real part and \(b\) is the imaginary part.
+    </div>
+    <br>
+    <p><strong>d) Complex and Repeated Roots:</strong></p>
+    <div class="formula">
+        \[y = [(C_1 + C_2 x)\cos(bx) + (C_3 + C_4 x)\sin(bx)]e^{ax}\]
+    </div>
+
+    <div class="page-break"></div>
+
+    <h2>Example Problems - Homogeneous Equations</h2>
+
+    <div class="example">
+        <h4>Example 1: Solve \(D^2y - 5Dy + 6y = 0\)</h4>
+        <div class="solution">
+            <p><strong>Solution:</strong></p>
+            <p>Given: \(D^2y - 5Dy + 6y = 0\)</p>
+            <p>\[\Rightarrow y(D^2 - 5D + 6) = 0\]</p>
+            <p>Let \(y = e^{mx}\) be the trial solution.</p>
+            <p>Then the auxiliary equation is:</p>
+            <p>\[e^{mx}(m^2 - 5m + 6) = 0\]</p>
+            <p>\[\Rightarrow m^2 - 5m + 6 = 0\]</p>
+            <p>\[\Rightarrow m^2 - 3m - 2m + 6 = 0\]</p>
+            <p>\[\Rightarrow m(m-3) - 2(m-3) = 0\]</p>
+            <p>\[\Rightarrow (m-3)(m-2) = 0\]</p>
+            <p>\[\Rightarrow m = 2, 3\]</p>
+            <p><strong>General solution:</strong></p>
+            <div class="formula">
+                \[y = c_1 e^{2x} + c_2 e^{3x} \quad \text{(Ans)}\]
+            </div>
+        </div>
+    </div>
+
+    <div class="example">
+        <h4>Example 2: Solve \(D^4y - D^3y - 3D^2y - 11Dy - 4y = 0\)</h4>
+        <div class="solution">
+            <p><strong>Solution:</strong></p>
+            <p>Given: \(y(D^4 - D^3 - 3D^2 - 11D - 4) = 0 \quad \ldots (i)\)</p>
+            <p>Let \(y = e^{mx}\) be the trial solution.</p>
+            <p>Auxiliary equation:</p>
+            <p>\[m^4 - m^3 - 3m^2 - 11m - 4 = 0\]</p>
+            <p>Factoring:</p>
+            <p>\[(m-4)(m^3 + 3m^2 + 3m + 1) = 0\]</p>
+            <p>\[\Rightarrow (m-4)(m+1)^3 = 0\]</p>
+            <p>\[\Rightarrow m = 4, -1, -1, -1\]</p>
+            <p><strong>General solution:</strong></p>
+            <div class="formula">
+                \[y = c_1 e^{4x} + (c_2 + c_3 x + c_4 x^2)e^{-x} \quad \text{(Ans)}\]
+            </div>
+        </div>
+    </div>
+
+    <div class="example">
+        <h4>Example 3: Solve \(D^2y - 2Dy + 2y = 0\) (Complex Roots)</h4>
+        <div class="solution">
+            <p><strong>Solution:</strong></p>
+            <p>Given: \(D^2y - 2Dy + 2y = 0\)</p><br>
+            <p>\[\Rightarrow y(D^2 - 2D + 2) = 0 \quad \ldots (i)\]</p>
+            <p>Auxiliary equation: \(m^2 - 2m + 2 = 0\)</p>
+            <p>Using quadratic formula:</p>
+            <p>\[m = \frac{-(-2) \pm \sqrt{(-2)^2 - 4 \cdot 1 \cdot 2}}{2 \cdot 1}\]</p>
+            <p>\[= \frac{2 \pm \sqrt{4-8}}{2} = \frac{2 \pm \sqrt{-4}}{2}\]</p>
+            <p>\[= \frac{2 \pm 2i}{2} = 1 \pm i\]</p>
+            <p><strong>General solution:</strong></p>
+            <div class="formula">
+                \[y = (c_1 \cos x + c_2 \sin x)e^x \quad \text{(Ans)}\]
+            </div>
+        </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <h2>Non-Homogeneous Linear Differential Equation</h2>
+
+    <div class="definition">
+        <p>Consider a differential equation of the form:</p>
+        <div class="formula">
+            \[\frac{d^n y}{dx^n} + P_1 \frac{d^{n-1} y}{dx^{n-1}} + P_2 \frac{d^{n-2} y}{dx^{n-2}} + \ldots + P_n y = Q \quad \ldots (i)\]
+        </div>
+        <p>Where \(P_1, P_2, \ldots, P_n\) are all constants and \(Q\) is a function of \(x\) or a constant, but <strong>\(Q \neq 0\)</strong>.</p>
+        
+        <p style="margin-top: 15px;">The general solution is:</p>
+        <div class="formula">
+            \[y = y_c + y_p\]
+        </div>
+        <p>Where:</p>
+        <ul>
+            <li>\(y_c\) = The complementary function (solution to homogeneous equation)</li>
+            <li>\(y_p\) = The particular integral</li>
+        </ul>
+    </div>
+
+    <h3>Working Rules for Finding Particular Integral (\(y_p\))</h3>
+
+    <p><strong>Rule 1: For \(Q = x^m\) (Polynomials)</strong></p>
+    <div class="formula">
+        \[\frac{1}{f(D)} x^m = [1 \pm \phi(D)]^{-1} x^m\]
+    </div>
+    <div class="note">
+        Expand the operator as a binomial series to operate on the polynomial.
+    </div>
+
+    <p><strong>Rule 2: For \(Q = e^{ax}\) (Exponentials)</strong></p>
+    <table>
+        <tr>
+            <th>Condition</th>
+            <th>Particular Integral Formula</th>
+        </tr>
+        <tr>
+            <td>If \(f(a) \neq 0\)</td>
+            <td>\(y_p = \frac{1}{f(a)} e^{ax}\)</td>
+        </tr>
+        <tr>
+            <td>If \(f(a) = 0\) but \(f'(a) \neq 0\)</td>
+            <td>\(y_p = \frac{x}{f'(a)} e^{ax}\)</td>
+        </tr>
+        <tr>
+            <td>If \(f(a) = f'(a) = 0\) but \(f''(a) \neq 0\)</td>
+            <td>\(y_p = \frac{x^2}{f''(a)} e^{ax}\)</td>
+        </tr>
+    </table>
+
+    <p><strong>Rule 3: For \(Q = \cos(ax)\) or \(\sin(ax)\) (Trigonometric)</strong></p>
+    <table>
+        <tr>
+            <th>Condition</th>
+            <th>Particular Integral Formula</th>
+        </tr>
+        <tr>
+            <td>If \(f(-a^2) \neq 0\)</td>
+            <td>\(\frac{1}{f(D^2)}[\cos(ax) \text{ or } \sin(ax)] = \frac{1}{f(-a^2)}[\cos(ax) \text{ or } \sin(ax)]\)</td>
+        </tr>
+        <tr>
+            <td>If \(f(-a^2) = 0\) but \(f'(-a^2) \neq 0\)</td>
+            <td>\(y_p = \frac{x}{f'(-a^2)}[\cos(ax) \text{ or } \sin(ax)]\)</td>
+        </tr>
+    </table>
+
+    <div class="page-break"></div>
+
+    <h2>Example Problems - Non-Homogeneous Equations</h2>
+
+    <div class="example">
+        <h4>Example 1: Solve \(D^2y + 4Dy + 3y = e^{-3x}\)</h4>
+        <div class="solution">
+            <p><strong>Solution:</strong></p>
+            <p>Symbolic form: \(y(D^2 + 4D + 3) = e^{-3x} \quad \ldots (i)\)</p>
+            <p>Auxiliary equation:</p>
+            <p>\[m^2 + 4m + 3 = 0\]</p>
+            <p>\[\Rightarrow (m+3)(m+1) = 0\]</p>
+            <p>\[\therefore m = -1, -3\]</p>
+            
+            <p><strong>Complementary function:</strong></p>
+            <p>\[y_c = c_1 e^{-x} + c_2 e^{-3x}\]</p>
+            
+            <p><strong>Particular integral:</strong></p>
+            <p>From (i): \(y_p = \frac{1}{D^2 + 4D + 3} e^{-3x}\)</p>
+            <p>Since \(f(-3) = 9 - 12 + 3 = 0\), we use Case II:</p>
+            <p>\[y_p = \frac{x}{2D + 4} e^{-3x} = \frac{x}{2(-3) + 4} e^{-3x} = \frac{x}{-2} e^{-3x} = -\frac{x}{2} e^{-3x}\]</p>
+            
+            <p><strong>General solution:</strong></p>
+            <div class="formula">
+                \[y = c_1 e^{-x} + c_2 e^{-3x} - \frac{x}{2} e^{-3x} \quad \text{(Ans)}\]
+            </div>
+        </div>
+    </div>
+
+    <div class="example">
+        <h4>Example 2: Solve \(D^2y + y = \cos 2x\)</h4>
+        <div class="solution">
+            <p><strong>Solution:</strong></p>
+            <p>\[y(D^2 + 1) = \cos 2x \quad \ldots (i)\]</p>
+            
+            <p>Auxiliary equation: \(m^2 + 1 = 0 \Rightarrow m = \pm i\)</p>
+            
+            <p><strong>Complementary function:</strong></p>
+            <p>\[y_c = c_1 \cos x + c_2 \sin x\]</p>
+            
+            <p><strong>Particular integral:</strong></p>
+            <p>\[y_p = \frac{\cos 2x}{D^2 + 1} = \frac{\cos 2x}{-(2)^2 + 1} = \frac{\cos 2x}{-3} = -\frac{1}{3}\cos 2x\]</p>
+            
+            <p><strong>General solution:</strong></p>
+            <div class="formula">
+                \[y = c_1 \cos x + c_2 \sin x - \frac{1}{3}\cos 2x \quad \text{(Ans)}\]
+            </div>
+        </div>
+    </div>
+
+    <div class="example">
+        <h4>Example 3: Solve \(D^3y + 3D^2y + 3Dy + y = e^{-x}\)</h4>
+        <div class="solution">
+            <p><strong>Solution:</strong></p>
+            <p>\[y(D^3 + 3D^2 + 3D + 1) = e^{-x} \quad \ldots (i)\]</p>
+            
+            <p>Auxiliary equation:</p>
+            <p>\[m^3 + 3m^2 + 3m + 1 = 0 \Rightarrow (m+1)^3 = 0\]</p>
+            <p>\[\therefore m = -1, -1, -1\]</p>
+            
+            <p><strong>Complementary function:</strong></p>
+            <p>\[y_c = (c_1 + c_2 x + c_3 x^2)e^{-x}\]</p>
+            
+            <p><strong>Particular integral:</strong></p>
+            <p>Since \(f(-1) = f'(-1) = f''(-1) = 0\), use repeated differentiation:</p>
+            <p>\[y_p = \frac{x^3}{6} e^{-x}\]</p>
+            
+            <p><strong>General solution:</strong></p>
+            <div class="formula">
+                \[y = (c_1 + c_2 x + c_3 x^2)e^{-x} + \frac{x^3}{6} e^{-x} \quad \text{(Ans)}\]
+            </div>
+        </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <h2>Additional Examples</h2>
+
+    <div class="example">
+        <h4>Example 4: Solve \(D^3y - 6D^2y + 11Dy - 6y = 0\)</h4>
+        <div class="solution">
+            <p><strong>Solution:</strong></p>
+            <p>\[y(D^3 - 6D^2 + 11D - 6) = 0\]</p>
+            <p>Auxiliary equation: \(m^3 - 6m^2 + 11m - 6 = 0\)</p>
+            <p>Factoring:</p>
+            <p>\[(m-3)(m^2 - 3m + 2) = 0\]</p>
+            <p>\[(m-3)(m-2)(m-1) = 0\]</p>
+            <p>\[m = 3, 2, 1\]</p>
+            <p><strong>General solution:</strong></p>
+            <div class="formula">
+                \[y = C_1 e^{3x} + C_2 e^{2x} + C_3 e^x \quad \text{(Ans)}\]
+            </div>
+        </div>
+    </div>
+
+    <div class="example">
+        <h4>Example 5: Solve \(D^3y - 6D^2y + 11Dy - 6y = e^{2x}\)</h4>
+        <div class="solution">
+            <p><strong>Solution:</strong></p>
+            <p>\[y(D^3 - 6D^2 + 11D - 6) = e^{2x} \quad \ldots (i)\]</p>
+            
+            <p>From previous example: \(m = 3, 2, 1\)</p>
+            
+            <p><strong>Complementary function:</strong></p>
+            <p>\[y_c = C_1 e^{3x} + C_2 e^{2x} + C_3 e^x\]</p>
+            
+            <p><strong>Particular integral:</strong></p>
+            <p>\[y_p = \frac{1}{D^3 - 6D^2 + 11D - 6} e^{2x}\]</p>
+            <p>Since \(f(2) = 8 - 24 + 22 - 6 = 0\), use Case II:</p>
+            <p>\[y_p = \frac{x}{3D^2 - 12D + 11} e^{2x} = \frac{x}{3(4) - 12(2) + 11} e^{2x}\]</p>
+            <p>\[= \frac{x}{12 - 24 + 11} e^{2x} = \frac{x}{-1} e^{2x} = -x e^{2x}\]</p>
+            
+            <p><strong>General solution:</strong></p>
+            <div class="formula">
+                \[y = C_1 e^{3x} + C_2 e^{2x} + C_3 e^x - x e^{2x} \quad \text{(Ans)}\]
+            </div>
+        </div>
+    </div>
+
+    <div class="example">
+        <h4>Example 6: Solve \(D^4y - D^3y - 9D^2y - 11Dy - 4y = e^{-x}\)</h4>
+        <div class="solution">
+            <p><strong>Solution:</strong></p>
+            <p>\[y(D^4 - D^3 - 9D^2 - 11D - 4) = e^{-x} \quad \ldots (i)\]</p>
+            
+            <p>Auxiliary equation: \(m^4 - m^3 - 9m^2 - 11m - 4 = 0\)</p>
+            <p>Factoring: \((m-4)(m+1)^3 = 0\)</p>
+            <p>\[m = 4, -1, -1, -1\]</p>
+            
+            <p><strong>Complementary function:</strong></p>
+            <p>\[y_c = C_1 e^{4x} + (C_2 + C_3 x + C_4 x^2)e^{-x}\]</p>
+            
+            <p><strong>Particular integral:</strong></p>
+            <p>Since \(f(-1) = f'(-1) = f''(-1) = 0\), use triple differentiation:</p>
+            <p>\[y_p = \frac{x^3}{24D - 6} e^{-x} = \frac{x^3}{24(-1) - 6} e^{-x} = \frac{x^3}{-30} e^{-x} = -\frac{x^3}{30} e^{-x}\]</p>
+            
+            <p><strong>General solution:</strong></p>
+            <div class="formula">
+                \[y = C_1 e^{4x} + (C_2 + C_3 x + C_4 x^2)e^{-x} - \frac{x^3}{30} e^{-x} \quad \text{(Ans)}\]
+            </div>
+        </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <h2>Cauchy-Euler Differential Equation</h2>
+
+    <div class="definition">
+        <p>A differential equation of the form:</p>
+        <div class="formula">
+            \[x^n \frac{d^n y}{dx^n} + P_1 x^{n-1} \frac{d^{n-1} y}{dx^{n-1}} + P_2 x^{n-2} \frac{d^{n-2} y}{dx^{n-2}} + \ldots + P_n y = Q\]
+        </div>
+        <p>where \(P_1, P_2, \ldots, P_n\) and \(Q\) are functions of \(x\) or constants, is called a <strong>Cauchy-Euler differential equation</strong>.</p>
+    </div>
+
+    <h3>Solution Method</h3>
+    <div class="note">
+        <p><strong>Substitution:</strong> Let \(x = e^z\), so \(z = \ln x\)</p>
+        <p>Let \(D_1 = \frac{d}{dz}\)</p>
+        <p><strong>Then:</strong></p>
+        <ul>
+            <li>\(xD = D_1\)</li>
+            <li>\(x^2D^2 = D_1(D_1 - 1)\)</li>
+            <li>\(x^3D^3 = D_1(D_1 - 1)(D_1 - 2)\)</li>
+        </ul>
+    </div>
+
+    <div class="example">
+        <h4>Example 1: Solve \(x^3D^3y + 3x^2Dy + 25y = 0\)</h4>
+        <div class="solution">
+            <p><strong>Solution:</strong></p><br>
+            <p>\[y(x^3D^3 + 3x^2D + 25) = 0 \quad \ldots (i)\]</p>
+            
+            <p>Let \(x = e^z\), so \(z = \ln x\) and \(D_1 = \frac{d}{dz}\)</p>
+            
+            <p>Then (i) becomes:</p>
+            <p>\[D_1(D_1-1) + 3D_1 + 25 = 0\]</p>
+            <p>\[(D_1^2 + 2D_1 + 25)y = 0\]</p>
+            
+            <p>Auxiliary equation: \(m^2 + 8m + 25 = 0\)</p>
+            <p>\[m = \frac{-8 \pm \sqrt{64 - 100}}{2} = \frac{-8 \pm \sqrt{-36}}{2} = \frac{-8 \pm 6i}{2} = -4 \pm 3i\]</p>
+            
+            <p><strong>General solution in z:</strong></p>
+            <p>\[y = (c_1 \cos 3z + c_2 \sin 3z)e^{-4z}\]</p>
+            
+            <p>Substituting \(z = \ln x\):</p>
+            <div class="formula">
+                \[y = (c_1 \cos(3\ln x) + c_2 \sin(3\ln x))x^{-4} \quad \text{(Ans)}\]
+            </div>
+        </div>
+    </div>
+
+    <div class="example">
+        <h4>Example 2: Solve \(x^3D^3y - x^2D^2y + 2xDy - 2y = x^3\)</h4>
+        <div class="solution">
+            <p><strong>Solution:</strong></p>
+            <p>\[y(x^3D^3 - x^2D^2 + 2xD - 2) = x^3 \quad \ldots (i)\]</p>
+            
+            <p>Substituting \(x = e^z\):</p>
+            <p>\[(D_1^3 - 4D_1^2 + 5D_1 - 2)y = e^{3z}\]</p>
+            
+            <p>Auxiliary equation: \(m^3 - 4m^2 + 5m - 2 = 0\)</p>
+            <p>Factoring: \((m-2)(m-1)^2 = 0\)</p>
+            <p>\[m = 2, 1, 1\]</p>
+            
+            <p><strong>Complementary function:</strong></p>
+            <p>\[y_c = (c_1 + c_2 z)e^z + c_3 e^{2z}\]</p>
+            <p>\[= (c_1 + c_2 \ln x)x + c_3 x^2\]</p>
+            
+            <p><strong>Particular integral:</strong></p>
+            <p>\[y_p = \frac{1}{27 - 36 + 15 - 2} e^{3z} = \frac{1}{4} e^{3z} = \frac{x^3}{4}\]</p>
+            
+            <p><strong>General solution:</strong></p>
+            <div class="formula">
+                \[y = (c_1 + c_2 \ln x)x + c_3 x^2 + \frac{x^3}{4} \quad \text{(Ans)}\]
+            </div>
+        </div>
+    </div>
+
+    <div class="example">
+        <h4>Example 3: Solve \(x^2D^2y - 2xDy - 4y = 0\)</h4>
+        <div class="solution">
+            <p><strong>Solution:</strong></p>
+            <p>\[y(x^2D^2 - 2xD - 4) = 0 \quad \ldots (i)\]</p>
+            
+            <p>After substitution: \(D_1^2 - 3D_1 - 4 = 0\)</p>
+            <p>\[(D_1 - 4)(D_1 + 1) = 0\]</p>
+            <p>\[m = 4, -1\]</p>
+            
+            <p><strong>General solution:</strong></p>
+            <div class="formula">
+                \[y = c_1 x^4 + c_2 x^{-1} \quad \text{(Ans)}\]
+            </div>
+        </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <h2>Partial Differential Equations</h2>
+
+    <h3>Notation</h3>
+    <div class="definition">
+        <p>For \(z = f(x, y)\):</p>
+        <ul>
+            <li>\(p = \frac{\partial z}{\partial x}\) (first partial derivative with respect to \(x\))</li>
+            <li>\(q = \frac{\partial z}{\partial y}\) (first partial derivative with respect to \(y\))</li>
+            <li>\(r = \frac{\partial^2 z}{\partial x^2} = f_{xx}\) (second partial derivative w.r.t. \(x\))</li>
+            <li>\(s = \frac{\partial^2 z}{\partial x \partial y} = f_{xy}\) (mixed partial derivative)</li>
+            <li>\(t = \frac{\partial^2 z}{\partial y^2} = f_{yy}\) (second partial derivative w.r.t. \(y\))</li>
+        </ul>
+    </div>
+
+    <h3>Formation of Partial Differential Equations</h3>
+    <p>PDEs are formed by eliminating arbitrary constants or functions from a given relation between variables.</p>
+
+    <h3>Case (i): Elimination of Arbitrary Constants</h3>
+
+    <div class="example">
+        <h4>Example 1: Form a PDE from \(z = (x-a)^2 + (y-b)^2\)</h4>
+        <div class="solution">
+            <p><strong>Solution:</strong></p>
+            <p>Given: \(z = (x-a)^2 + (y-b)^2\)</p>
+            
+            <p>Differentiating partially:</p>
+            <p>\[\frac{\partial z}{\partial x} = 2(x-a)\]</p>
+            <p>\[\frac{\partial z}{\partial y} = 2(y-b)\]</p>
+            
+            <p>Squaring and adding:</p>
+            <p>\[\left(\frac{\partial z}{\partial x}\right)^2 + \left(\frac{\partial z}{\partial y}\right)^2 = 4[(x-a)^2 + (y-b)^2] = 4z\]</p>
+            
+            <p><strong>PDE:</strong></p>
+            <div class="formula">
+                \[\left(\frac{\partial z}{\partial x}\right)^2 + \left(\frac{\partial z}{\partial y}\right)^2 = 4z \quad \text{(Ans)}\]
+            </div>
+        </div>
+    </div>
+
+    <div class="example">
+        <h4>Example 2: Form a PDE from \(z = a(x+y) + b(x-y) + ab + c\)</h4>
+        <div class="solution">
+            <p><strong>Solution:</strong></p>
+            <p>Given: \(z = a(x+y) + b(x-y) + ab + c\)</p>
+            
+            <p>Differentiating:</p>
+            <p>\[\frac{\partial z}{\partial x} = a + b\]</p>
+            <p>\[\frac{\partial z}{\partial y} = a - b\]</p>
+            <p>\[\frac{\partial z}{\partial t} = ab\]</p>
+            
+            <p>Squaring the first two and subtracting:</p><br>
+            <p>\[\left(\frac{\partial z}{\partial x}\right)^2 - \left(\frac{\partial z}{\partial y}\right)^2 = (a+b)^2 - (a-b)^2 = 4ab\]</p>
+            
+            <p><strong>PDE:</strong></p>
+            <div class="formula">
+                \[\left(\frac{\partial z}{\partial x}\right)^2 - \left(\frac{\partial z}{\partial y}\right)^2 = 4\frac{\partial z}{\partial t} \quad \text{(Ans)}\]
+            </div>
+        </div>
+    </div>
+
+    <div class="example">
+        <h4>Example 3: Sphere of radius 4 with center on xy-plane</h4>
+        <div class="solution">
+            <p><strong>Solution:</strong></p>
+            <p>Given: \((x-a)^2 + (y-b)^2 + z^2 = 16\)</p>
+            
+            <p>Differentiating partially:</p>
+            <p>\[2(x-a) + 2z\frac{\partial z}{\partial x} = 0 \Rightarrow (x-a) = -z\frac{\partial z}{\partial x}\]</p>
+            <p>\[2(y-b) + 2z\frac{\partial z}{\partial y} = 0 \Rightarrow (y-b) = -z\frac{\partial z}{\partial y}\]</p>
+            
+            <p>Substituting back:</p>
+            <p>\[\left(-z\frac{\partial z}{\partial x}\right)^2 + \left(-z\frac{\partial z}{\partial y}\right)^2 + z^2 = 16\]</p>
+            
+            <p><strong>PDE:</strong></p>
+            <div class="formula">
+                \[z^2\left[\left(\frac{\partial z}{\partial x}\right)^2 + \left(\frac{\partial z}{\partial y}\right)^2\right] + z^2 = 16 \quad \text{(Ans)}\]
+            </div>
+        </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <div class="example">
+        <h4>Example 4: Planes with intercepts summing to zero</h4>
+        <div class="solution">
+            <p><strong>Solution:</strong></p>
+            <p>Given: \(\frac{x}{a} + \frac{y}{b} + \frac{z}{c} = 1\) and \(a + b + c = 0\)</p>
+            
+            <p>Let \(p = \frac{dz}{dx}\) and \(q = \frac{dz}{dy}\)</p>
+            
+            <p>From differentiation:</p>
+            <p>\[\frac{1}{a} + \frac{p}{c} = 0 \Rightarrow c = -ap\]</p>
+            <p>\[\frac{1}{b} + \frac{q}{c} = 0 \Rightarrow b = -\frac{c}{q}\]</p>
+            
+            <p>Eliminating \(a\), \(b\), \(c\) using determinant method:</p>
+            
+            <p><strong>PDE:</strong></p>
+            <div class="formula">
+                \[\frac{dz}{dx} + \frac{dz}{dy} = \frac{dz}{dx} \cdot \frac{dz}{dy} \quad \text{(Ans)}\]
+            </div>
+        </div>
+    </div>
+
+    <h3>Case (ii): Elimination of Arbitrary Functions</h3>
+
+    <div class="example">
+        <h4>Example 1: \(z = xy + f(x^2 + y^2)\)</h4>
+        <div class="solution">
+            <p><strong>Solution:</strong></p>
+            <p>Given: \(z = xy + f(x^2 + y^2)\)</p>
+            
+            <p>Differentiating:</p>
+            <p>\[\frac{\partial z}{\partial x} = y + 2xf'(x^2 + y^2)\]</p>
+            <p>\[\frac{\partial z}{\partial y} = x + 2yf'(x^2 + y^2)\]</p>
+            
+            <p>Eliminating \(f'\):</p>
+            <p>\[y\frac{\partial z}{\partial x} - x\frac{\partial z}{\partial y} = y^2 - x^2\]</p>
+            
+            <p><strong>PDE:</strong></p>
+            <div class="formula">
+                \[y\frac{\partial z}{\partial x} - x\frac{\partial z}{\partial y} = y^2 - x^2 \quad \text{(Ans)}\]
+            </div>
+        </div>
+    </div>
+
+    <div class="example">
+        <h4>Example 2: \(z = x + y + f(xy)\)</h4>
+        <div class="solution">
+            <p><strong>Solution:</strong></p>
+            <p>Given: \(z = x + y + f(xy)\)</p>
+            
+            <p>Differentiating:</p>
+            <p>\[\frac{\partial z}{\partial x} = 1 + yf'(xy)\]</p>
+            <p>\[\frac{\partial z}{\partial y} = 1 + xf'(xy)\]</p>
+            
+            <p>Eliminating \(f'\):</p>
+            <p><strong>PDE:</strong></p>
+            <div class="formula">
+                \[x\frac{\partial z}{\partial x} - y\frac{\partial z}{\partial y} = x - y \quad \text{(Ans)}\]
+            </div>
+        </div>
+    </div>
+
+    <div class="example">
+        <h4>Example 3: \(x + y + z = f(x^2 + y^2 + z^2)\)</h4>
+        <div class="solution">
+            <p><strong>Solution:</strong></p>
+            <p>Given: \(x + y + z = f(x^2 + y^2 + z^2)\)</p>
+            
+            <p>Let \(p = \frac{\partial z}{\partial x}\) and \(q = \frac{\partial z}{\partial y}\)</p>
+            
+            <p>Differentiating:</p>
+            <p>\[1 + p = f'(x^2 + y^2 + z^2) \cdot (2x + 2zp)\]</p>
+            <p>\[1 + q = f'(x^2 + y^2 + z^2) \cdot (2y + 2zq)\]</p>
+            
+            <p>Eliminating \(f'\):</p>
+            <p><strong>PDE:</strong></p>
+            <div class="formula">
+                \[(1 + p)(2y + 2zq) = (1 + q)(2x + 2zp) \quad \text{(Ans)}\]
+            </div>
+        </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <div class="example">
+        <h4>Example 4: \(xyz = f(x + y + z)\)</h4>
+        <div class="solution">
+            <p><strong>Solution:</strong></p>
+            <p>Given: \(xyz = f(x + y + z)\)</p>
+            
+            <p>Differentiating and eliminating \(f'\):</p>
+            
+            <p><strong>PDE:</strong></p>
+            <div class="formula">
+                \[xy\left(x\frac{dz}{dx} + z\right)\left(1 + \frac{dz}{dy}\right) = x\left(y\frac{dz}{dy} + z\right)\left(1 + \frac{dz}{dx}\right) \quad \text{(Ans)}\]
+            </div>
+        </div>
+    </div>
+
+    <div class="example">
+        <h4>Example 5: \(z = e^{ax + iby} \cdot f(ax - by)\)</h4>
+        <div class="solution">
+            <p><strong>Solution:</strong></p>
+            <p>Given: \(z = e^{ax + iby} \cdot f(ax - by)\)</p>
+            
+            <p>Differentiating and eliminating \(f'\):</p>
+            
+            <p><strong>PDE:</strong></p>
+            <div class="formula">
+                \[b\frac{\partial z}{\partial x} + a\frac{\partial z}{\partial y} = 2abz \quad \text{(Ans)}\]
+            </div>
+        </div>
+    </div>
+
+    <div class="example">
+        <h4>Example 6: \(z = f(x^2 - y) + g(x^2 + y)\)</h4>
+        <div class="solution">
+            <p><strong>Solution:</strong></p>
+            <p>Given: \(z = f(x^2 - y) + g(x^2 + y)\)</p>
+            
+            <p>Differentiating twice and eliminating \(f''\) and \(g''\):</p>
+            
+            <p><strong>PDE:</strong></p>
+            <div class="formula">
+                \[x\frac{\partial^2 z}{\partial x^2} - 4x^3\frac{\partial^2 z}{\partial y^2} = \frac{\partial z}{\partial x} \quad \text{(Ans)}\]
+            </div>
+        </div>
+    </div>
+
+    <div class="example">
+        <h4>Example 7: \(z = f(x + iy) + g(x - iy)\)</h4>
+        <div class="solution">
+            <p><strong>Solution:</strong></p>
+            <p>Given: \(z = f(x + iy) + g(x - iy)\)</p>
+            
+            <p>Differentiating twice:</p>
+            <p>\[\frac{\partial^2 z}{\partial x^2} = f''(x + iy) + g''(x - iy)\]</p>
+            <p>\[\frac{\partial^2 z}{\partial y^2} = -f''(x + iy) - g''(x - iy)\]</p>
+            
+            <p><strong>PDE (Laplace's equation in complex form):</strong></p>
+            <div class="formula">
+                \[\frac{\partial^2 z}{\partial y^2} = -\frac{\partial^2 z}{\partial x^2} \quad \text{(Ans)}\]
+            </div>
+        </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <h2>Classification of Second-Order PDEs</h2>
+
+    <div class="definition">
+        <p>For a general second-order PDE:</p>
+        <div class="formula">
+            \[AU_{xx} + BU_{xy} + CU_{yy} + FU_x + GU_y + HU = E\]
+        </div>
+        
+        <p>The discriminant is: \(\Delta = B^2 - 4AC\)</p>
+        
+        <p><strong>Classification:</strong></p>
+        <ul>
+            <li><strong>Hyperbolic:</strong> \(\Delta > 0\) (e.g., Wave equation)</li>
+            <li><strong>Elliptic:</strong> \(\Delta < 0\) (e.g., Laplace's equation)</li>
+            <li><strong>Parabolic:</strong> \(\Delta = 0\) (e.g., Heat equation)</li>
+        </ul>
+    </div>
+
+    <div class="example">
+        <h4>Example 1: Classify \(U_{xx} + U_{yy} + 4U_x = 0\)</h4>
+        <div class="solution">
+            <p><strong>Solution:</strong></p>
+            <p>\(A = 1\), \(B = 0\), \(C = -1\)</p>
+            <p>\[\Delta = 0^2 - 4(1)(-1) = 4 > 0\]</p>
+            <p><strong>Classification: Hyperbolic</strong></p>
+        </div>
+    </div>
+
+    <div class="example">
+        <h4>Example 2: Classify \(2U_{xx} + 3U_{xy} + 4U_{yy} = 0\)</h4>
+        <div class="solution">
+            <p><strong>Solution:</strong></p>
+            <p>\(A = 2\), \(B = 3\), \(C = 4\)</p>
+            <p>\[\Delta = 3^2 - 4(2)(4) = 9 - 32 = -23 < 0\]</p>
+            <p><strong>Classification: Elliptic</strong></p>
+        </div>
+    </div>
+
+    <div class="example">
+        <h4>Example 3: Classify \(yU_{xx} - xU_{xy} + yU_{yy} - 8x^2U_y = xe^{-2y}\)</h4>
+        <div class="solution">
+            <p><strong>Solution:</strong></p>
+            <p>\(A = y\), \(B = -x\), \(C = y\)</p>
+            <p>\[\Delta = (-x)^2 - 4(y)(y) = x^2 - 4y^2 = (x+2y)(x-2y)\]</p>
+            
+            <p><strong>Classification depends on region:</strong></p>
+            <ul>
+                <li><strong>Hyperbolic:</strong> \(x < -2y\) or \(x > 2y\)</li>
+                <li><strong>Elliptic:</strong> \(-2y < x < 2y\)</li>
+                <li><strong>Parabolic:</strong> \(x = \pm 2y\)</li>
+            </ul>
+        </div>
+    </div>
+
+
+    <script>
+        // Auto-print dialog on load (optional)
+        // window.onload = function() {
+        //     setTimeout(function() { window.print(); }, 1000);
+        // }
+    </script>
+</body>
+</html>
